@@ -12,7 +12,8 @@ Page({
     comments: [],
     book: null,
     likeStatus: false,
-    likeCound: 0
+    likeCound: 0,
+    posting: false
   },
 
   /**
@@ -41,9 +42,29 @@ Page({
       })
     }))
   },
-  onlike(event) {
+  onLike(event) {
     const like_or_cancel = event.detail.behavior
     likeModel.like(like_or_cancel, this.data.book.id, 400)
+  },
+  onFakePost(event) {
+    this.setData({
+      posting: true
+    })
+  },
+  onPost(event){
+    const comment = event.detail.text
+    if(comment.length>12){
+      wx.showToast({
+        title: '短评最多12个字',
+        icon: 'none'
+      })
+      return
+    }
+  },
+  onCancel(event) {
+    this.setData({
+      posting: false
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

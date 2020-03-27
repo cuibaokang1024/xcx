@@ -10,7 +10,7 @@ var limit = function (array, length) {
     if(array.length == 0) {
         return
     }
-    return array
+    return array.slice(0, length)
 }
 
 module.exports = {
