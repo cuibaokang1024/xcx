@@ -1,5 +1,8 @@
 // pages/book/book.js
 import BookModel from '../../models/book.js'
+import KeywordModel from '../../models/keyword.js'
+import { random } from '../../util/common.js'
+const keywordModel = new KeywordModel()
 const bookModel = new BookModel()
 Page({
 
@@ -7,7 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    books: []
+    books: [],
+    searching: false,
+    hotWords: [],
+    historyWords: [],
+    more: ''
   },
 
   /**
@@ -21,7 +28,29 @@ Page({
       })
     })
   },
-
+  onSearching(event) {
+    this.setData({
+      searching: true,
+      historyWords: keywordModel.getHistory()
+    })
+    keywordModel.getHot().then((res)=> {
+      this.setData({
+        hotWords: res.hot
+      })
+    })
+  },
+  onSearchOnce(event) {
+    console.log(111)
+    this.setData({
+      historyWords: keywordModel.getHistory()
+      
+    })
+  },
+  onCancel(event) {
+    this.setData({
+      searching: false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -61,7 +90,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({
+      more: random(16)
+    })
   },
 
   /**

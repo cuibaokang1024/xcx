@@ -11,7 +11,7 @@ export default class HTTP {
         return new Promise((resolve, reject) => {
             wx.request({
                 url: config.api_base_url + url,
-                methond: method,
+                method: method,
                 data: data,
                 header: {
                     'content-type': 'application/json',

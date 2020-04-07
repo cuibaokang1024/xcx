@@ -1,8 +1,8 @@
-<view class="container">
+<view wx:if="{{!searching}}" class="container">
     <view class="header">
         <view class="box">
             <image src="/images/icon/search.png"></image>
-            <text>搜索书籍</text>
+            <text bind:tap="onSearching">搜索书籍</text>
         </view>
     </view>
     <view class="sub-container">
@@ -14,3 +14,5 @@
         </view>
     </view>
 </view>
+
+<v-search wx:if="{{searching}}" bind:search="onSearchOnce" bind:cancel="onCancel" more="{{more}}" historyWords="{{historyWords}}" hotWords="{{hotWords}}" />
